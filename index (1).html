@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyanshu Jain — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080810; --bg2:#0d0d1a; --bg3:#111122;
+  --surface:#13131f; --surface2:#1a1a2e;
+  --border:rgba(138,120,255,0.12); --border2:rgba(138,120,255,0.28);
+  --gold:#c8a96e; --gold2:#e8d5b0;
+  --violet:#8a78ff; --violet2:#b8aeff; --violet3:rgba(138,120,255,0.08);
+  --cyan:#4ecdc4;
+  --text:#f0eeff; --text2:#9896b8; --text3:#5a5878;
+  --r:18px; --r2:28px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--violet);border-radius:4px}
+.cursor-glow{position:fixed;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(138,120,255,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .1s,top .1s}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 6vw;background:rgba(8,8,16,0.75);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:border-color .3s}
+nav.scrolled{border-color:var(--border2)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--violet)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text2);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--violet);transition:width .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--violet);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s,box-shadow .2s,transform .2s}
+.nav-cta:hover{background:var(--violet2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(138,120,255,.35)}
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding:8rem 6vw 5rem;position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:500px;height:500px;top:-100px;right:-80px;background:radial-gradient(circle,rgba(138,120,255,0.14) 0%,transparent 70%)}
+.orb2{width:350px;height:350px;bottom:-80px;left:-60px;background:radial-gradient(circle,rgba(200,169,110,0.09) 0%,transparent 70%)}
+.grid-bg{position:absolute;inset:0;opacity:.025;pointer-events:none;background-image:linear-gradient(var(--violet) 1px,transparent 1px),linear-gradient(90deg,var(--violet) 1px,transparent 1px);background-size:60px 60px}
+.hero-text{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(138,120,255,0.1);border:1px solid rgba(138,120,255,0.28);color:var(--violet2);padding:.35rem 1rem;border-radius:50px;font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.8rem;animation:fadeUp .9s .1s both}
+.blink{width:7px;height:7px;background:var(--cyan);border-radius:50%;animation:blinkAnim 1.5s ease-in-out infinite}
+@keyframes blinkAnim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;animation:fadeUp .9s .2s both}
+.name-grad{background:linear-gradient(135deg,#c8a96e 0%,#f0e6c8 40%,#8a78ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.role-line{display:block;font-style:italic;color:var(--violet2);font-weight:600;font-size:.72em;margin-top:.3rem}
+.hero-tag{margin:1.4rem 0 2.4rem;font-size:1.02rem;color:var(--text2);max-width:420px;line-height:1.75;animation:fadeUp .9s .35s both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .9s .45s both}
+.btn-p{background:var(--violet);color:#fff;padding:.85rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(138,120,255,.3)}
+.btn-p:hover{background:var(--violet2);transform:translateY(-2px);box-shadow:0 10px 36px rgba(138,120,255,.45)}
+.btn-o{border:1px solid var(--border2);color:var(--text);padding:.85rem 2rem;border-radius:50px;text-decoration:none;font-weight:500;font-size:.9rem;background:rgba(255,255,255,0.03);transition:border-color .2s,background .2s,transform .2s}
+.btn-o:hover{border-color:var(--violet);background:var(--violet3);transform:translateY(-2px)}
+/* Profile image */
+.hero-img-wrap{display:flex;justify-content:center;align-items:center;position:relative;z-index:1;animation:fadeUp .9s .3s both}
+.p-outer{position:relative;width:340px;height:340px}
+.p-ring-svg{position:absolute;inset:-22px;z-index:0;animation:spin 22s linear infinite}
+.p-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(138,120,255,0.28) 0%,transparent 70%);z-index:0;animation:gPulse 3s ease-in-out infinite}
+@keyframes gPulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.p-img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid rgba(138,120,255,0.3);display:block;position:relative;z-index:1;filter:brightness(1.05) saturate(1.1)}
+.p-badge{position:absolute;bottom:14px;right:-28px;z-index:10;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:.8rem 1.1rem;display:flex;align-items:center;gap:.6rem}
+.p-badge-dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:blinkAnim 2s infinite}
+.p-badge-t{font-size:.78rem;font-weight:600;color:var(--text)}
+.p-badge-s{font-size:.7rem;color:var(--text2)}
+.fb{position:absolute;z-index:10;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:.5rem .85rem;font-size:.72rem;font-weight:600;color:var(--violet2);animation:fl 4s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* MARQUEE */
+.mq-wrap{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.9rem 0;overflow:hidden}
+.mq-track{display:flex;gap:3rem;white-space:nowrap;animation:mq 22s linear infinite}
+.mq-item{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:.7rem}
+.mq-dot{width:5px;height:5px;background:var(--violet);border-radius:50%}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* SECTIONS */
+section{padding:7rem 6vw;position:relative}
+.s-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:1rem}
+.s-tag::before{content:'';width:20px;height:1px;background:var(--violet)}
+.s-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--text)}
+.s-sub{color:var(--text2);font-size:1rem;margin-top:.8rem;max-width:520px}
+.s-head{margin-bottom:3.5rem}
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.ab-desc{color:var(--text2);font-size:1rem;line-height:1.85;margin-top:1.2rem}
+.ab-desc strong{color:var(--violet2);font-weight:600}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.stat-b{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem 1.2rem;text-align:center;transition:border-color .25s,transform .25s}
+.stat-b:hover{border-color:var(--violet);transform:translateY(-4px)}
+.stat-n{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--violet2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-l{font-size:.76rem;color:var(--text3);margin-top:.4rem;font-weight:500;letter-spacing:.04em}
+.about-vis{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden}
+.about-vis::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(138,120,255,0.12) 0%,transparent 70%)}
+.av-t{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1.5rem}
+.sb-item{margin-bottom:1.3rem}
+.sb-top{display:flex;justify-content:space-between;margin-bottom:.45rem}
+.sb-name{font-size:.85rem;font-weight:500;color:var(--text)}
+.sb-pct{font-size:.8rem;color:var(--violet2);font-weight:600}
+.bar-t{height:6px;background:rgba(255,255,255,0.05);border-radius:6px;overflow:hidden}
+.bar-f{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--violet),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.bar-f.on{transform:scaleX(1)}
+/* SKILLS */
+#skills{background:var(--bg)}
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.sk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s,box-shadow .25s,border-color .25s;cursor:default;position:relative;overflow:hidden}
+.sk-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(138,120,255,0.05),transparent);opacity:0;transition:opacity .25s}
+.sk-card:hover{transform:translateY(-5px);border-color:var(--violet);box-shadow:0 16px 48px rgba(138,120,255,.15)}
+.sk-card:hover::after{opacity:1}
+.sk-ico{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:rgba(138,120,255,0.12);border:1px solid rgba(138,120,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.sk-nm{font-weight:600;font-size:.93rem;color:var(--text)}
+.sk-sb{font-size:.76rem;color:var(--text3);margin-top:.15rem}
+/* PROJECTS */
+#projects{background:var(--bg2)}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+.pj-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;display:flex;flex-direction:column}
+.pj-card:hover{transform:translateY(-8px);box-shadow:0 24px 64px rgba(0,0,0,.5);border-color:var(--border2)}
+.pj-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pt1{background:linear-gradient(135deg,#1a0533 0%,#3d1170 100%)}
+.pt2{background:linear-gradient(135deg,#051035 0%,#133580 100%)}
+.pt3{background:linear-gradient(135deg,#052028 0%,#0a5266 100%)}
+.pt-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.4) 100%)}
+.pt-lbl{position:relative;z-index:1;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;opacity:.22;color:#fff;letter-spacing:.05em}
+.pt-ico{position:absolute;bottom:16px;right:16px;z-index:2;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.pj-body{padding:1.8rem;flex:1;display:flex;flex-direction:column}
+.pj-tag{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:.5rem;display:inline-flex;align-items:center;gap:.4rem}
+.pj-tag::before{content:'';width:12px;height:1px;background:var(--violet)}
+.pj-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.65rem;line-height:1.2;color:var(--text)}
+.pj-desc{color:var(--text2);font-size:.88rem;line-height:1.7;flex:1;margin-bottom:1.4rem}
+.pj-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.3rem;border-radius:50px;border:1px solid var(--border2);background:transparent;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;color:var(--violet2);cursor:pointer;text-decoration:none;width:fit-content;transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.pj-btn:hover{background:var(--violet3);border-color:var(--violet);box-shadow:0 0 20px rgba(138,120,255,.2);transform:translateX(3px)}
+.pj-btn::after{content:'→'}
+/* EXP */
+#experience{background:var(--bg)}
+.exp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;max-width:700px;transition:border-color .25s,box-shadow .25s}
+.exp-card:hover{border-color:var(--violet);box-shadow:0 16px 48px rgba(138,120,255,.1)}
+.exp-dc{text-align:center}
+.exp-pill{background:rgba(138,120,255,0.1);border:1px solid rgba(138,120,255,0.25);color:var(--violet2);padding:.4rem .85rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.exp-dotl{display:flex;flex-direction:column;align-items:center;margin-top:.8rem}
+.exp-dot{width:10px;height:10px;background:var(--violet);border-radius:50%;box-shadow:0 0 12px rgba(138,120,255,.6)}
+.exp-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--violet),transparent);margin-top:6px}
+.exp-role{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.3rem}
+.exp-co{color:var(--violet2);font-size:.9rem;font-weight:600;margin-bottom:.8rem}
+.exp-desc{color:var(--text2);font-size:.9rem;line-height:1.75}
+/* ACHIEVEMENTS */
+#achievements{background:var(--bg2)}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.ach-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:2rem;position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.ach-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(138,120,255,0.08);transition:transform .4s}
+.ach-card:hover{transform:translateY(-5px);border-color:var(--violet);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.ach-card:hover::before{transform:scale(2.5)}
+.ach-n{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--violet2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.7rem}
+.ach-t{font-weight:600;font-size:1rem;color:var(--text);margin-bottom:.4rem}
+.ach-d{font-size:.84rem;color:var(--text3);line-height:1.65}
+/* CONTACT */
+#contact{background:var(--bg)}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.ct-links{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.ct-link{display:flex;align-items:center;gap:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;text-decoration:none;color:var(--text);transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.ct-link:hover{transform:translateX(8px);border-color:var(--violet);background:var(--surface2);box-shadow:0 8px 32px rgba(138,120,255,.15)}
+.ct-ico{width:44px;height:44px;border-radius:12px;background:rgba(138,120,255,0.12);border:1px solid rgba(138,120,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.ct-lbl{font-size:.7rem;color:var(--text3);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ct-val{font-weight:500;font-size:.88rem;color:var(--text2);margin-top:.15rem;word-break:break-all}
+.ct-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden}
+.ct-box::before{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(138,120,255,0.14) 0%,transparent 70%)}
+.ct-h{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;line-height:1.2;margin-bottom:.8rem}
+.ct-s{color:var(--text2);font-size:.92rem;margin-bottom:1.8rem;line-height:1.7}
+.ct-mailto{display:inline-flex;align-items:center;gap:.7rem;background:linear-gradient(135deg,var(--violet),#6b5ce7);color:#fff;padding:.9rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 28px rgba(138,120,255,.35)}
+.ct-mailto:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(138,120,255,.5)}
+.ct-mailto::after{content:'→'}
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:2.5rem 6vw;font-size:.82rem;color:var(--text3)}
+footer span{color:var(--violet2)}
+/* ANIM */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+/* RESPONSIVE */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;text-align:center;padding-top:7rem}
+  .hero-img-wrap{order:-1}
+  .p-outer{width:240px;height:240px}
+  .about-grid,.ct-grid{grid-template-columns:1fr;gap:3rem}
+  .hero-tag{margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .nav-links{display:none}
+  .fb{display:none}
+}
+@media(max-width:600px){
+  .sk-grid,.pj-grid,.ach-grid{grid-template-columns:1fr}
+  section{padding:5rem 5vw}
+  .exp-card{grid-template-columns:1fr;gap:1rem}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cg"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">P<span>J</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:jainpriyanshu891@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="grid-bg"></div>
+
+  <div class="hero-text">
+    <div class="hero-badge"><div class="blink"></div> Open to Work</div>
+    <h1>
+      <span class="name-grad">Priyanshu<br>Jain</span>
+      <span class="role-line">UI/UX Designer</span>
+    </h1>
+    <p class="hero-tag">Designing simple and intuitive digital experiences that connect people with purpose — one pixel at a time.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-p">View Projects</a>
+      <a href="#contact" class="btn-o">Contact Me</a>
+    </div>
+  </div>
+
+  <div class="hero-img-wrap">
+    <div class="p-outer">
+      <div class="fb" style="top:18px;left:-52px;animation-delay:0s">✦ Figma</div>
+      <div class="fb" style="top:108px;right:-62px;animation-delay:1.5s">UX Research</div>
+      <div class="p-glow"></div>
+      <svg class="p-ring-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="185" stroke="url(#rg)" stroke-width="1" stroke-dasharray="8 14"/>
+        <circle cx="200" cy="200" r="195" stroke="rgba(138,120,255,0.07)" stroke-width="1"/>
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8a78ff"/>
+            <stop offset="50%" stop-color="#4ecdc4"/>
+            <stop offset="100%" stop-color="#c8a96e"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <!--
+      ╔══════════════════════════════════════╗
+      ║  PROFILE IMAGE:                     ║
+      ║  Place your photo as "profile.jpg"  ║
+      ║  in the same folder as this file.   ║
+      ║  OR change src to any image URL.    ║
+      ╚══════════════════════════════════════╝
+      -->
+      <img class="p-img"
+        src="Profile.jpeg"
+        alt="Priyanshu Jain"
+        onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'340\' height=\'340\' viewBox=\'0 0 340 340\'><rect width=\'340\' height=\'340\' fill=\'%2313131f\'/><circle cx=\'170\' cy=\'135\' r=\'62\' fill=\'%238a78ff\' opacity=\'.28\'/><ellipse cx=\'170\' cy=\'295\' rx=\'100\' ry=\'72\' fill=\'%238a78ff\' opacity=\'.18\'/><text x=\'50%25\' y=\'46%25\' font-family=\'sans-serif\' font-size=\'13\' fill=\'%23b8aeff\' text-anchor=\'middle\'>Replace profile.jpg</text><text x=\'50%25\' y=\'53%25\' font-family=\'sans-serif\' font-size=\'13\' fill=\'%239896b8\' text-anchor=\'middle\'>with your photo</text></svg>'"
+      >
+      <div class="p-badge">
+        <div class="p-badge-dot"></div>
+        <div>
+          <div class="p-badge-t">Available Now</div>
+          <div class="p-badge-s">Open to work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span class="mq-item">UI Design <span class="mq-dot"></span></span>
+    <span class="mq-item">UX Research <span class="mq-dot"></span></span>
+    <span class="mq-item">Figma <span class="mq-dot"></span></span>
+    <span class="mq-item">Prototyping <span class="mq-dot"></span></span>
+    <span class="mq-item">Design Thinking <span class="mq-dot"></span></span>
+    <span class="mq-item">HTML & CSS <span class="mq-dot"></span></span>
+    <span class="mq-item">Wireframing <span class="mq-dot"></span></span>
+    <span class="mq-item">User Flows <span class="mq-dot"></span></span>
+    <span class="mq-item">UI Design <span class="mq-dot"></span></span>
+    <span class="mq-item">UX Research <span class="mq-dot"></span></span>
+    <span class="mq-item">Figma <span class="mq-dot"></span></span>
+    <span class="mq-item">Prototyping <span class="mq-dot"></span></span>
+    <span class="mq-item">Design Thinking <span class="mq-dot"></span></span>
+    <span class="mq-item">HTML & CSS <span class="mq-dot"></span></span>
+    <span class="mq-item">Wireframing <span class="mq-dot"></span></span>
+    <span class="mq-item">User Flows <span class="mq-dot"></span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="s-head">
+        <span class="s-tag">About Me</span>
+        <h2 class="s-title">Passionate about design that <em style="color:var(--violet2)">just works</em></h2>
+      </div>
+      <p class="ab-desc">I'm a <strong>Computer Science student</strong> passionate about UI/UX design. I enjoy creating clean, user-friendly interfaces and continuously improving my skills through real projects and internship experience.</p>
+      <p class="ab-desc" style="margin-top:.8rem">My process is <strong>user-first</strong> — understanding the problem before touching the canvas. I combine empathy with clean visual craft to produce interfaces that feel both intuitive and polished.</p>
+      <div class="stats-row">
+        <div class="stat-b"><div class="stat-n">3+</div><div class="stat-l">UI Projects</div></div>
+        <div class="stat-b"><div class="stat-n">1</div><div class="stat-l">Internship</div></div>
+        <div class="stat-b"><div class="stat-n">∞</div><div class="stat-l">Curiosity</div></div>
+      </div>
+    </div>
+    <div class="about-vis reveal" id="aboutVis">
+      <div class="av-t">Design Proficiency</div>
+      <div class="sb-item"><div class="sb-top"><span class="sb-name">UI/UX Design</span><span class="sb-pct">85%</span></div><div class="bar-t"><div class="bar-f" data-w=".85"></div></div></div>
+      <div class="sb-item"><div class="sb-top"><span class="sb-name">Figma</span><span class="sb-pct">80%</span></div><div class="bar-t"><div class="bar-f" data-w=".80"></div></div></div>
+      <div class="sb-item"><div class="sb-top"><span class="sb-name">Wireframing & Prototyping</span><span class="sb-pct">78%</span></div><div class="bar-t"><div class="bar-f" data-w=".78"></div></div></div>
+      <div class="sb-item"><div class="sb-top"><span class="sb-name">User Research</span><span class="sb-pct">72%</span></div><div class="bar-t"><div class="bar-f" data-w=".72"></div></div></div>
+      <div class="sb-item"><div class="sb-top"><span class="sb-name">HTML & CSS</span><span class="sb-pct">75%</span></div><div class="bar-t"><div class="bar-f" data-w=".75"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="s-head reveal">
+    <span class="s-tag">Expertise</span>
+    <h2 class="s-title">Skills & Tools</h2>
+    <p class="s-sub">A focused toolkit for end-to-end design work from research to delivery.</p>
+  </div>
+  <div class="sk-grid">
+    <div class="sk-card reveal"><div class="sk-ico">🎨</div><div><div class="sk-nm">UI/UX Design</div><div class="sk-sb">End-to-end design</div></div></div>
+    <div class="sk-card reveal"><div class="sk-ico">✏️</div><div><div class="sk-nm">Figma</div><div class="sk-sb">Design & prototype</div></div></div>
+    <div class="sk-card reveal"><div class="sk-ico">📐</div><div><div class="sk-nm">Wireframing</div><div class="sk-sb">Low & high fidelity</div></div></div>
+    <div class="sk-card reveal"><div class="sk-ico">🔍</div><div><div class="sk-nm">User Research</div><div class="sk-sb">Insights & testing</div></div></div>
+    <div class="sk-card reveal"><div class="sk-ico">💡</div><div><div class="sk-nm">Design Thinking</div><div class="sk-sb">Problem solving</div></div></div>
+    <div class="sk-card reveal"><div class="sk-ico">💻</div><div><div class="sk-nm">HTML & CSS</div><div class="sk-sb">Front-end basics</div></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="s-head reveal">
+    <span class="s-tag">Selected Work</span>
+    <h2 class="s-title">Projects</h2>
+    <p class="s-sub">Interfaces designed with purpose and care.</p>
+  </div>
+  <div class="pj-grid">
+    <div class="pj-card reveal">
+      <div class="pj-thumb pt1"><div class="pt-ov"></div><div class="pt-lbl">FOODLY</div><div class="pt-ico">🍕</div></div>
+      <div class="pj-body">
+        <div class="pj-tag">Mobile App · UI Design</div>
+        <div class="pj-title">Foodly — Food Delivery App</div>
+        <p class="pj-desc">A clean, end-to-end food delivery experience with smooth ordering flows, rich menu browsing, and intuitive navigation that makes ordering feel effortless.</p>
+        <a href="#" class="pj-btn">View Case Study</a>
+      </div>
+    </div>
+    <div class="pj-card reveal">
+      <div class="pj-thumb pt2"><div class="pt-ov"></div><div class="pt-lbl">AUTH</div><div class="pt-ico">🔐</div></div>
+      <div class="pj-body">
+        <div class="pj-tag">Auth Flow · UX Design</div>
+        <div class="pj-title">Login / Signup Flow</div>
+        <p class="pj-desc">A frictionless authentication experience with clear visual hierarchy, accessible form design, and minimal steps from sign-up to first use.</p>
+        <a href="#" class="pj-btn">View Case Study</a>
+      </div>
+    </div>
+    <div class="pj-card reveal">
+      <div class="pj-thumb pt3"><div class="pt-ov"></div><div class="pt-lbl">DASH</div><div class="pt-ico">📊</div></div>
+      <div class="pj-body">
+        <div class="pj-tag">Dashboard · Data Viz</div>
+        <div class="pj-title">Dashboard UI</div>
+        <p class="pj-desc">A data-rich dashboard with meaningful metrics, clear visual layout, and intuitive navigation designed to surface insights without overwhelming the user.</p>
+        <a href="#" class="pj-btn">View Case Study</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="s-head reveal">
+    <span class="s-tag">Experience</span>
+    <h2 class="s-title">Work History</h2>
+    <p class="s-sub">Building real skills through hands-on design.</p>
+  </div>
+  <div class="exp-card reveal">
+    <div class="exp-dc">
+      <div class="exp-pill">Jan–Feb 2026</div>
+      <div class="exp-dotl"><div class="exp-dot"></div><div class="exp-line"></div></div>
+    </div>
+    <div>
+      <div class="exp-role">UI/UX Design Intern</div>
+      <div class="exp-co">Coding Samurai</div>
+      <div class="exp-desc">Worked on user interface projects applying design thinking principles. Created wireframes and prototypes, conducted user research, and collaborated with development teams to bring designs to life.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="s-head reveal">
+    <span class="s-tag">Milestones</span>
+    <h2 class="s-title">Achievements</h2>
+    <p class="s-sub">Progress made, skills earned, goals crossed.</p>
+  </div>
+  <div class="ach-grid">
+    <div class="ach-card reveal"><div class="ach-n">01</div><div class="ach-t">UI/UX Internship Completed</div><div class="ach-d">Completed a professional internship at Coding Samurai gaining real industry experience in product design.</div></div>
+    <div class="ach-card reveal"><div class="ach-n">3+</div><div class="ach-t">UI Projects Delivered</div><div class="ach-d">Designed multiple projects across mobile and web platforms showcasing versatility and creative problem-solving.</div></div>
+    <div class="ach-card reveal"><div class="ach-n">∞</div><div class="ach-t">Continuous Growth</div><div class="ach-d">Constantly improving through self-learning, practice, and applying modern design principles to every new project.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ct-grid">
+    <div class="reveal">
+      <span class="s-tag">Let's Talk</span>
+      <h2 class="s-title" style="margin-bottom:.8rem">Get In Touch</h2>
+      <p class="s-sub">Open to design opportunities, collaborations, and conversations about great UX.</p>
+      <div class="ct-links">
+        <a href="mailto:jainpriyanshu891@gmail.com" class="ct-link">
+          <div class="ct-ico">✉️</div>
+          <div><div class="ct-lbl">Email</div><div class="ct-val">jainpriyanshu891@gmail.com</div></div>
+        </a>
+        <a href="https://github.com/priyanshuxd305" target="_blank" rel="noopener" class="ct-link">
+          <div class="ct-ico">🐙</div>
+          <div><div class="ct-lbl">GitHub</div><div class="ct-val">github.com/priyanshuxd305</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/priyanshu-jain-87397a349" target="_blank" rel="noopener" class="ct-link">
+          <div class="ct-ico">💼</div>
+          <div><div class="ct-lbl">LinkedIn</div><div class="ct-val">linkedin.com/in/priyanshu-jain-87397a349</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="ct-box reveal">
+      <div class="ct-h">Let's build something <span style="color:var(--violet2)">great</span> together.</div>
+      <div class="ct-s">Whether you have a project in mind, a design challenge, or just want to say hello — my inbox is always open.</div>
+      <a href="mailto:jainpriyanshu891@gmail.com" class="ct-mailto">Send a Message</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Crafted with ♥ by <span>Priyanshu Jain</span> · UI/UX Designer · 2026</p>
+</footer>
+
+<script>
+const cg=document.getElementById('cg');
+document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px'});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){e.target.style.transitionDelay=(i*0.08)+'s';e.target.classList.add('visible')}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>40)});
+
+const bObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-f').forEach(b=>{
+        const w=parseFloat(b.dataset.w)*100;
+        b.style.width=w+'%';
+        b.classList.add('on');
+      });
+    }
+  });
+},{threshold:0.3});
+const av=document.getElementById('aboutVis');
+if(av)bObs.observe(av);
+
+document.querySelectorAll('.pj-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`translateY(-8px) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform=''});
+});
+</script>
+</body>
+</html>
